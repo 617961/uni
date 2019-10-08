@@ -2,6 +2,6 @@ build
 out
 .idea
 *.iml
-cmake-build-debug.idea
+cmake-build-debug
 .vscode
 dist
