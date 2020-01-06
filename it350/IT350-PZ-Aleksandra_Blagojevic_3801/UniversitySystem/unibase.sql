@@ -3,6 +3,13 @@
 /* Created on:     1/3/2020 11:06:50 PM                         */
 /*==============================================================*/
 
+create database if not exists unibase;
+
+use unibase;
+
+create user 'admin'@'localhost' identified by 'admin';
+
+grant all privileges on unibase to 'admin'@'localhost' identified by 'admin';
 
 drop table if exists curriculum;
 
