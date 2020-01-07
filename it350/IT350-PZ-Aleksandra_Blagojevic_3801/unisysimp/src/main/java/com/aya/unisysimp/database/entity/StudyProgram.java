@@ -14,7 +14,7 @@ public class StudyProgram implements Serializable {
     private int programID;
 
     @JoinColumn(name = "faculty_id", referencedColumnName = "faculty_id")
-    @OneToOne
+    @OneToMany
     private Faculty facultyID;
 
     @Column(name = "study_name", nullable = false)
