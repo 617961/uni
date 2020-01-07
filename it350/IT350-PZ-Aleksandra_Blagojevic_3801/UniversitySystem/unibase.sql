@@ -143,7 +143,7 @@ create table person
 (
    person_id            int not null,
    jmbg                 varchar(13) not null,
-   degree_name          varchar(64) not null,
+   name                 varchar(64) not null,
    surname              varchar(64) not null,
    phone_number         varchar(32) not null,
    email                varchar(64) not null,
