@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Student implements Serializable {
     private static final long serialVersionUID = 2L;
 
-    @JoinColumn(name = "id_person", referencedColumnName = "id_person")
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
     @ManyToOne
     private Person personID;
 
