@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     1/3/2020 11:06:50 PM                         */
+/* Created on:     1/7/2020 2:43:31 AM                          */
 /*==============================================================*/
 
 
@@ -64,7 +64,6 @@ create table curriculum
 create table degree
 (
    degree_id            int not null,
-   faculty_id           int,
    degree_name          varchar(64) not null,
    primary key (degree_id)
 );
@@ -75,6 +74,7 @@ create table degree
 create table faculty
 (
    faculty_id           int not null,
+   degree_id            int not null,
    faculty_name         varchar(64) not null,
    primary key (faculty_id)
 );
@@ -85,7 +85,9 @@ create table faculty
 create table grading
 (
    grading_id           int not null,
+   person_id            int not null,
    stud_id              int not null,
+   pro_person_id        int not null,
    prof_id              int not null,
    obli_def_id          int,
    file_location        varchar(256) not null,
@@ -258,6 +260,7 @@ create table stud_sub
 create table subject
 (
    subject_id           int not null,
+   person_id            int not null,
    prof_id              int not null,
    subject_code         varchar(5) not null,
    subject_name         varchar(64) not null,
@@ -306,8 +309,8 @@ alter table curriculum add constraint fk_r4 foreign key (year_id)
 alter table curriculum add constraint fk_r6 foreign key (semester_id)
       references semester (semester_id) on delete restrict on update restrict;
 
-alter table degree add constraint fk_r1 foreign key (faculty_id)
-      references faculty (faculty_id) on delete restrict on update restrict;
+alter table faculty add constraint fk_r1 foreign key (degree_id)
+      references degree (degree_id) on delete restrict on update restrict;
 
 alter table grading add constraint fk_grading_ob_def foreign key (obli_def_id)
       references obligation_definition (obli_def_id) on delete restrict on update restrict;
