@@ -61,7 +61,7 @@ create table curriculum
    curriculum_id        int not null,
    year_id              int not null,
    semester_id          int not null,
-   program_id           int,
+   program_id           int not null,
    primary key (curriculum_id)
 );
 
@@ -255,10 +255,9 @@ create table study_year
 /*==============================================================*/
 create table stud_sub
 (
-   person_id            int not null,
    stud_id              int not null,
    subject_id           int not null,
-   primary key (person_id, stud_id, subject_id)
+   primary key (stud_id, subject_id)
 );
 
 /*==============================================================*/
@@ -267,7 +266,6 @@ create table stud_sub
 create table subject
 (
    subject_id           int not null,
-   person_id            int not null,
    prof_id              int not null,
    subject_code         varchar(5) not null,
    subject_name         varchar(64) not null,
@@ -362,7 +360,7 @@ alter table stud_sub add constraint fk_stud_sub2 foreign key (subject_id)
       references subject (subject_id) on delete restrict on update restrict;
 
 alter table subject add constraint fk_r15 foreign key (subject_code, prof_id)
-      references professor (person_id, prof_id) on delete restrict on update restrict;
+      references professor (prof_id) on delete restrict on update restrict;
 
 alter table subject_definition add constraint fk_r5 foreign key (curriculum_id)
       references curriculum (curriculum_id) on delete restrict on update restrict;
