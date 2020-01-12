@@ -14,7 +14,7 @@ public class ObligationDefinition implements Serializable {
     private int obliDefID;
 
     @JoinColumn(name = "sub_def_id", referencedColumnName = "sub_def_id")
-    @OneToMany
+    @OneToOne
     private SubjectDefinition subDefID;
 
     @Column(name = "max_points")
