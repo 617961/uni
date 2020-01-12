@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     1/12/2020 7:03:13 PM                         */
+/* Created on:     1/12/2020 7:55:14 PM                         */
 /*==============================================================*/
 
 create database if not exists unibase;
@@ -61,7 +61,7 @@ create table curriculum
    curriculum_id        int not null,
    year_id              int not null,
    semester_id          int not null,
-   program_id           int not null,
+   program_id           int,
    primary key (curriculum_id)
 );
 
@@ -145,7 +145,7 @@ create table person
 (
    person_id            int not null,
    jmbg                 varchar(13) not null,
-   name                 varchar(64) not null,
+   degree_name          varchar(64) not null,
    surname              varchar(64) not null,
    phone_number         varchar(32) not null,
    email                varchar(64) not null,
@@ -194,7 +194,6 @@ create table project_obligation
 create table question
 (
    question_id          int not null,
-   test_id              int not null,
    ans1                 text not null,
    ans2                 text not null,
    ans3                 text not null,
@@ -254,9 +253,10 @@ create table study_year
 /*==============================================================*/
 create table stud_sub
 (
+   person_id            int not null,
    stud_id              int not null,
    subject_id           int not null,
-   primary key (stud_id, subject_id)
+   primary key (person_id, stud_id, subject_id)
 );
 
 /*==============================================================*/
@@ -265,6 +265,7 @@ create table stud_sub
 create table subject
 (
    subject_id           int not null,
+   person_id            int not null,
    prof_id              int not null,
    subject_code         varchar(5) not null,
    subject_name         varchar(64) not null,
@@ -289,6 +290,7 @@ create table subject_definition
 create table test
 (
    test_id              int not null,
+   question_id          int not null,
    test_num             smallint not null,
    primary key (test_id)
 );
@@ -345,9 +347,6 @@ alter table professor add constraint fk_inheritance foreign key (person_id)
 alter table project_obligation add constraint fk_r9 foreign key (project_id)
       references project (project_id) on delete restrict on update restrict;
 
-alter table question add constraint fk_r20 foreign key (test_id)
-      references test (test_id) on delete restrict on update restrict;
-
 alter table student add constraint fk_inheritance2 foreign key (person_id)
       references person (person_id) on delete restrict on update restrict;
 
@@ -361,13 +360,16 @@ alter table stud_sub add constraint fk_stud_sub2 foreign key (subject_id)
       references subject (subject_id) on delete restrict on update restrict;
 
 alter table subject add constraint fk_r15 foreign key (subject_code, prof_id)
-      references professor (prof_id) on delete restrict on update restrict;
+      references professor (person_id, prof_id) on delete restrict on update restrict;
 
 alter table subject_definition add constraint fk_r5 foreign key (curriculum_id)
       references curriculum (curriculum_id) on delete restrict on update restrict;
 
 alter table subject_definition add constraint fk_r7 foreign key (subject_id)
       references subject (subject_id) on delete restrict on update restrict;
+
+alter table test add constraint fk_r20 foreign key (question_id)
+      references question (question_id) on delete restrict on update restrict;
 
 alter table test_obligation add constraint fk_r11 foreign key (test_id)
       references test (test_id) on delete restrict on update restrict;
