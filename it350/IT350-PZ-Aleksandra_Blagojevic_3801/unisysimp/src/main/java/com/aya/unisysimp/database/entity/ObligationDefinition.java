@@ -13,6 +13,18 @@ public class ObligationDefinition implements Serializable {
     @Column(name = "obli_def_id", unique = true, updatable = false, nullable = false)
     private int obliDefID;
 
+    @JoinColumn(name = "hw_ob_id", referencedColumnName = "hw_ob_id")
+    @OneToMany
+    private HomeworkObligation hwObID;
+
+    @JoinColumn(name = "proj_ob_id", referencedColumnName = "proj_ob_id")
+    @OneToOne
+    private ProjectObligation projObID;
+
+    @JoinColumn(name = "test_ob_id", referencedColumnName = "test_ob_id")
+    @OneToMany
+    private TestObligation testObID;
+
     @JoinColumn(name = "sub_def_id", referencedColumnName = "sub_def_id")
     @OneToOne
     private SubjectDefinition subDefID;
@@ -23,7 +35,10 @@ public class ObligationDefinition implements Serializable {
     public ObligationDefinition() {
     }
 
-    public ObligationDefinition(SubjectDefinition subDefID, double maxPoints) {
+    public ObligationDefinition(HomeworkObligation hwObID, ProjectObligation projObID, TestObligation testObID, SubjectDefinition subDefID, double maxPoints) {
+        this.hwObID = hwObID;
+        this.projObID = projObID;
+        this.testObID = testObID;
         this.subDefID = subDefID;
         this.maxPoints = maxPoints;
     }
@@ -38,6 +53,30 @@ public class ObligationDefinition implements Serializable {
 
     public void setObliDefID(int obliDefID) {
         this.obliDefID = obliDefID;
+    }
+
+    public HomeworkObligation getHwObID() {
+        return hwObID;
+    }
+
+    public void setHwObID(HomeworkObligation hwObID) {
+        this.hwObID = hwObID;
+    }
+
+    public ProjectObligation getProjObID() {
+        return projObID;
+    }
+
+    public void setProjObID(ProjectObligation projObID) {
+        this.projObID = projObID;
+    }
+
+    public TestObligation getTestObID() {
+        return testObID;
+    }
+
+    public void setTestObID(TestObligation testObID) {
+        this.testObID = testObID;
     }
 
     public SubjectDefinition getSubDefID() {
