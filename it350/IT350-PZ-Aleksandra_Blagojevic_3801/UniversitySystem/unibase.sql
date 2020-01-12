@@ -1,15 +1,8 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     1/7/2020 2:43:31 AM                          */
+/* Created on:     1/12/2020 7:03:13 PM                         */
 /*==============================================================*/
 
-create database if not exists unibase;
-
-use unibase;
-
-create user 'admin'@'localhost' identified by 'admin';
-
-grant all privileges on unibase to 'admin'@'localhost' identified by 'admin';
 
 drop table if exists curriculum;
 
@@ -92,9 +85,7 @@ create table faculty
 create table grading
 (
    grading_id           int not null,
-   person_id            int not null,
    stud_id              int not null,
-   pro_person_id        int not null,
    prof_id              int not null,
    obli_def_id          int,
    file_location        varchar(256) not null,
@@ -121,7 +112,6 @@ create table homework
 create table homework_obligation
 (
    hw_ob_id             int not null,
-   obli_def_id          int,
    homework_id          int not null,
    prev_sent            smallint not null,
    primary key (hw_ob_id)
@@ -133,6 +123,9 @@ create table homework_obligation
 create table obligation_definition
 (
    obli_def_id          int not null,
+   hw_ob_id             int not null,
+   proj_ob_id           int,
+   test_ob_id           int not null,
    sub_def_id           int not null,
    max_points           real not null,
    primary key (obli_def_id)
@@ -184,7 +177,6 @@ create table project
 create table project_obligation
 (
    proj_ob_id           int not null,
-   obli_def_id          int not null,
    project_id           int not null,
    primary key (proj_ob_id)
 );
@@ -303,7 +295,6 @@ create table test_obligation
 (
    test_ob_id           int not null,
    test_id              int not null,
-   obli_def_id          int,
    primary key (test_ob_id)
 );
 
@@ -331,17 +322,20 @@ alter table grading add constraint fk_r19 foreign key (grading_id, prof_id)
 alter table homework_obligation add constraint fk_r10 foreign key (homework_id)
       references homework (homework_id) on delete restrict on update restrict;
 
-alter table homework_obligation add constraint fk_r13 foreign key (obli_def_id)
-      references obligation_definition (obli_def_id) on delete restrict on update restrict;
+alter table obligation_definition add constraint fk_r12 foreign key (proj_ob_id)
+      references project_obligation (proj_ob_id) on delete restrict on update restrict;
+
+alter table obligation_definition add constraint fk_r13 foreign key (hw_ob_id)
+      references homework_obligation (hw_ob_id) on delete restrict on update restrict;
+
+alter table obligation_definition add constraint fk_r14 foreign key (test_ob_id)
+      references test_obligation (test_ob_id) on delete restrict on update restrict;
 
 alter table obligation_definition add constraint fk_r8 foreign key (sub_def_id)
       references subject_definition (sub_def_id) on delete restrict on update restrict;
 
 alter table professor add constraint fk_inheritance foreign key (person_id)
       references person (person_id) on delete restrict on update restrict;
-
-alter table project_obligation add constraint fk_r12 foreign key (obli_def_id)
-      references obligation_definition (obli_def_id) on delete restrict on update restrict;
 
 alter table project_obligation add constraint fk_r9 foreign key (project_id)
       references project (project_id) on delete restrict on update restrict;
@@ -372,7 +366,4 @@ alter table subject_definition add constraint fk_r7 foreign key (subject_id)
 
 alter table test_obligation add constraint fk_r11 foreign key (test_id)
       references test (test_id) on delete restrict on update restrict;
-
-alter table test_obligation add constraint fk_r14 foreign key (obli_def_id)
-      references obligation_definition (obli_def_id) on delete restrict on update restrict;
 
