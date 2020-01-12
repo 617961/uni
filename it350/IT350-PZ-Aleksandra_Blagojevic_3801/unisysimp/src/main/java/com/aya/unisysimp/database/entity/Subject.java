@@ -2,6 +2,7 @@ package com.aya.unisysimp.database.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "subject")
@@ -26,14 +27,19 @@ public class Subject implements Serializable {
     @Column(name = "espb", nullable = false)
     private short subjectEspb;
 
+    @JoinColumn(name = "stud_id", referencedColumnName = "stud_id")
+    @ManyToMany
+    private List<Student> students;
+
     public Subject() {
     }
 
-    public Subject(Professor professorID, String subjectCode, String subjectName, short subjectEspb) {
+    public Subject(Professor professorID, String subjectCode, String subjectName, short subjectEspb, List<Student> students) {
         this.professorID = professorID;
         this.subjectCode = subjectCode;
         this.subjectName = subjectName;
         this.subjectEspb = subjectEspb;
+        this.students = students;
     }
 
     public static long getSerialVersionUID() {
@@ -78,5 +84,13 @@ public class Subject implements Serializable {
 
     public void setSubjectEspb(short subjectEspb) {
         this.subjectEspb = subjectEspb;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }
