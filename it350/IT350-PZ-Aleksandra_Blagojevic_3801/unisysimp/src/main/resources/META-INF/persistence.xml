@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+2. This file defines classes you wish to persist. How these classes are
+mapped to database tables. Database driver, location, userid and pw
+ -->
+
+<persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+    <!-- Define a name used to get an entity manager. Define that you will
+    complete transactions with the DB  -->
+    <persistence-unit name="unisysimp" transaction-type="RESOURCE_LOCAL">
+
+        <!-- Define the class for Hibernate which implements JPA -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!-- Define the object that should be persisted in the database -->
+        <class>com.aya.unisysimp.database.entity.Curriculum</class>
+        <class>com.aya.unisysimp.database.entity.Degree</class>
+        <class>com.aya.unisysimp.database.entity.Faculty</class>
+        <class>com.aya.unisysimp.database.entity.Grading</class>
+        <class>com.aya.unisysimp.database.entity.Homework</class>
+        <class>com.aya.unisysimp.database.entity.HomeworkObligation</class>
+        <class>com.aya.unisysimp.database.entity.ObligationDefinition</class>
+        <class>com.aya.unisysimp.database.entity.Person</class>
+        <class>com.aya.unisysimp.database.entity.Professor</class>
+        <class>com.aya.unisysimp.database.entity.Project</class>
+        <class>com.aya.unisysimp.database.entity.ProjectObligation</class>
+        <class>com.aya.unisysimp.database.entity.Question</class>
+        <class>com.aya.unisysimp.database.entity.Semester</class>
+        <class>com.aya.unisysimp.database.entity.Student</class>
+        <class>com.aya.unisysimp.database.entity.StudyProgram</class>
+        <class>com.aya.unisysimp.database.entity.StudyYear</class>
+        <class>com.aya.unisysimp.database.entity.Subject</class>
+        <class>com.aya.unisysimp.database.entity.SubjectDefinition</class>
+        <class>com.aya.unisysimp.database.entity.Test</class>
+        <class>com.aya.unisysimp.database.entity.TestObligation</class>
+
+
+        <properties>
+            <!-- Driver for DB database -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <!-- URL for DB -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/unibase" />
+            <!-- Username -->
+            <property name="javax.persistence.jdbc.user" value="admin" />
+            <!-- Password -->
+            <property name="javax.persistence.jdbc.password" value="admin" />
+        </properties>
+    </persistence-unit>
+</persistence>
