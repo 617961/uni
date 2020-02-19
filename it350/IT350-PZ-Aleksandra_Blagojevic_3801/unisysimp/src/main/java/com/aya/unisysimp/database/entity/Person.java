@@ -3,6 +3,8 @@ package com.aya.unisysimp.database.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -11,7 +13,7 @@ public class Person implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "person_id", unique = true, updatable = false, nullable = false)
+    @Column(name = "person_id", unique = true, updatable = false)
     private int personID;
 
     @Column(name = "jmbg", nullable = false)
@@ -111,4 +113,73 @@ public class Person implements Serializable{
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
+
+    public void addPerson(String jmbg, String name, String surname, String phoneNumber, String email, String cityOfBirth, LocalDate dateOfBirth){
+        EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("unisysimp");
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction et = null;
+
+        try{
+            et = em.getTransaction();
+            et.begin();
+            Person person = new Person();
+            person.setJmbg(jmbg);
+            person.setName(name);
+            person.setSurname(surname);
+            person.setPhoneNumber(phoneNumber);
+            person.setEmail(email);
+            person.setCityOfBirth(cityOfBirth);
+            person.setDateOfBirth(dateOfBirth);
+            em.persist(person);
+            et.commit();
+        } catch(Exception ex){
+            if(et != null){
+                et.rollback();
+            }
+            ex.printStackTrace();
+        }finally{
+            em.close();
+            ENTITY_MANAGER_FACTORY.close();
+        }
+    }
+    public Person getPerson(String jmbg){
+        EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("unisysimp");
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String query = "select p from Person p where p.jmbg = :jmbg";
+
+        TypedQuery<Person> tq = em.createQuery(query, Person.class);
+        tq.setParameter("jmbg", jmbg);
+        Person person = null;
+        try{
+            person = tq.getSingleResult();
+            return person;
+        } catch(NoResultException ex){
+            ex.printStackTrace();
+            return null;
+        } finally {
+            em.close();
+            ENTITY_MANAGER_FACTORY.close();
+        }
+    }
+    public List<Person> getPersons(){
+        EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("unisysimp");
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        String strQuery = "select p from Person p where p.jmbg is not null";
+
+        TypedQuery<Person> tq = em.createQuery(strQuery, Person.class);
+        List<Person> persons;
+
+        try{
+            persons = tq.getResultList();
+            return persons;
+        } catch (NoResultException ex){
+            ex.printStackTrace();
+            return null;
+        }
+        finally {
+            em.close();
+            ENTITY_MANAGER_FACTORY.close();
+        }
+    }
+
 }

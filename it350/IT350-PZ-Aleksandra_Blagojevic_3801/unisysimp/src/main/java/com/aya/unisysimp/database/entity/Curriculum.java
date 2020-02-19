@@ -2,11 +2,12 @@ package com.aya.unisysimp.database.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "curriculum")
 public class Curriculum implements Serializable {
-    private static final long serialVersionUID = 9L;
+    private static final long serialVersionUID = 25L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,23 +16,23 @@ public class Curriculum implements Serializable {
 
     @JoinColumn(name = "year_id", referencedColumnName = "year_id")
     @OneToMany
-    private StudyYear yearID;
+    private ArrayList<StudyYear> studyYearList;
 
     @JoinColumn(name = "semester_id", referencedColumnName = "semester_id")
     @OneToOne
     private Semester semesterID;
 
-    @JoinColumn(name = "program_id", referencedColumnName = "semester_id")
+    @JoinColumn(name = "program_id", referencedColumnName = "program_id")
     @OneToMany
-    private StudyProgram programID;
+    private ArrayList<StudyProgram> studyProgramList;
 
     public Curriculum() {
     }
 
-    public Curriculum(StudyYear yearID, Semester semesterID, StudyProgram programID) {
-        this.yearID = yearID;
+    public Curriculum(ArrayList<StudyYear> studyYearList, Semester semesterID, ArrayList<StudyProgram> studyProgramList) {
+        this.studyYearList = studyYearList;
         this.semesterID = semesterID;
-        this.programID = programID;
+        this.studyProgramList = studyProgramList;
     }
 
     public static long getSerialVersionUID() {
@@ -46,12 +47,12 @@ public class Curriculum implements Serializable {
         this.curriculumID = curriculumID;
     }
 
-    public StudyYear getYearID() {
-        return yearID;
+    public ArrayList<StudyYear> getStudyYearList() {
+        return studyYearList;
     }
 
-    public void setYearID(StudyYear yearID) {
-        this.yearID = yearID;
+    public void setStudyYearList(ArrayList<StudyYear> studyYearList) {
+        this.studyYearList = studyYearList;
     }
 
     public Semester getSemesterID() {
@@ -62,11 +63,15 @@ public class Curriculum implements Serializable {
         this.semesterID = semesterID;
     }
 
-    public StudyProgram getProgramID() {
-        return programID;
+    public ArrayList<StudyProgram> getStudyProgramList() {
+        return studyProgramList;
     }
 
-    public void setProgramID(StudyProgram programID) {
-        this.programID = programID;
+    public void setStudyProgramList(ArrayList<StudyProgram> studyProgramList) {
+        this.studyProgramList = studyProgramList;
+    }
+    public void addCurriculum(ArrayList<StudyYear> studyYearList, Semester semesterID, ArrayList<StudyProgram> studyProgramList){
+
+
     }
 }
