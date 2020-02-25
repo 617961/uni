@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="https://pbs.twimg.com/profile_images/378800000535935164/17188ca8cf9f6207adcbee65bd7da9b7_400x400.png">
+    <link rel="mask-icon" type="" href="https://pbs.twimg.com/profile_images/378800000535935164/17188ca8cf9f6207adcbee65bd7da9b7_400x400.png" color="#111">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://materializecss.com/css/prism.css">
+    <link rel="stylesheet" href="https://materializecss.com/css/ghpages-materialize.css">
+    <style>
+        @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+    </style>
+    <script>
+        window.console = window.console || function(t) {};
+    </script>
+    <script>
+        if (document.location.search.match(/type=embed/gi)) {
+            window.parent.postMessage("resize", "*");
+        }
+    </script>
+</head>
+<body translate="no">
+<div class="container col s8">
+    <div class="row">
+        <nav>
+            <div class="nav-wrapper">
+                <div class="col s8">
+                    <h3 class="brand-logo col s8">Register</h3>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <form class="col s14">
+        <div class="row">
+            <div class="input-field hoverable col s6">
+                <i class="material-icons prefix">contacts</i>
+                <input id="first_name" type="text" class="validate">
+                <label for="first_name" class="">First Name</label>
+            </div>
+            <div class="input-field hoverable col s6">
+                <i class="material-icons prefix">contacts</i>
+                <input id="last_name" type="text" class="validate">
+                <label for="last_name" class="">Last Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field hoverable col s6">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="username" type="text" class="validate">
+                <label for="username">Username</label>
+            </div>
+            <div class="input-field hoverable col s6">
+                <i class="material-icons prefix">email</i>
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field hoverable col s6">
+                <i class="material-icons prefix">vpn_key</i>
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+            </div>
+            <div class="input-field hoverable col s6">
+                <i class="material-icons prefix">replay</i>
+                <input id="password2" type="password" class="validate">
+                <label for="password2">Retype Password</label>
+            </div>
+        </div>
+        <a class="waves-effect waves-light btn right hoverable"><i class="large material-icons right">done</i>register</a>
+    </form>
+</div>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-db44b196776521ea816683afab021f757616c80860d31da6232dedb8d7cc4862.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+<script src="https://materializecss.com/js/prism.js"></script>
+<script id="rendered-js">
+    var password = document.getElementById("password"),
+        password2 = document.getElementById("password2");
+
+    function validatePassword() {
+        if (password.value != password2.value) {
+            password2.setCustomValidity("Passwords Don't Match");
+        } else {
+            password2.setCustomValidity('');
+        }
+    }
+
+    password.onchange = validatePassword;
+    password2.onkeydown = validatePassword;
+</script>
+
+
+<div class="hiddendiv common"></div></body>
+</html>

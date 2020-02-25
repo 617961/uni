@@ -65,7 +65,7 @@ public class Student implements Serializable {
         this.studentEmail = studentEmail;
     }
 
-    public void addStudent(String studyType, String studentEmail){
+    public void createStudent(String studyType, String studentEmail){
         EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("unisysimp");
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction et = null;

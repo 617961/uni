@@ -114,7 +114,7 @@ public class Person implements Serializable{
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void addPerson(String jmbg, String name, String surname, String phoneNumber, String email, String cityOfBirth, LocalDate dateOfBirth){
+    public void createPerson(String jmbg, String name, String surname, String phoneNumber, String email, String cityOfBirth, LocalDate dateOfBirth){
         EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("unisysimp");
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction et = null;

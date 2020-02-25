@@ -58,7 +58,7 @@ drop table if exists test_obligation;
 /*==============================================================*/
 create table curriculum
 (
-   curriculum_id        int not null,
+   curriculum_id        int not null auto_increment,
    year_id              int not null,
    semester_id          int not null,
    program_id           int,
@@ -70,7 +70,7 @@ create table curriculum
 /*==============================================================*/
 create table degree
 (
-   degree_id            int not null,
+   degree_id            int not null auto_increment,
    degree_name          varchar(64) not null,
    primary key (degree_id)
 );
@@ -80,7 +80,7 @@ create table degree
 /*==============================================================*/
 create table faculty
 (
-   faculty_id           int not null,
+   faculty_id           int not null auto_increment,
    degree_id            int not null,
    faculty_name         varchar(64) not null,
    primary key (faculty_id)
@@ -91,7 +91,7 @@ create table faculty
 /*==============================================================*/
 create table grading
 (
-   grading_id           int not null,
+   grading_id           int not null auto_increment,
    stud_id              int not null,
    prof_id              int not null,
    obli_def_id          int,
@@ -107,7 +107,7 @@ create table grading
 /*==============================================================*/
 create table homework
 (
-   homework_id          int not null,
+   homework_id          int not null auto_increment,
    homework_num         smallint not null,
    homework_text        text not null,
    primary key (homework_id)
@@ -118,7 +118,7 @@ create table homework
 /*==============================================================*/
 create table homework_obligation
 (
-   hw_ob_id             int not null,
+   hw_ob_id             int not null auto_increment,
    homework_id          int not null,
    prev_sent            smallint not null,
    primary key (hw_ob_id)
@@ -129,7 +129,7 @@ create table homework_obligation
 /*==============================================================*/
 create table obligation_definition
 (
-   obli_def_id          int not null,
+   obli_def_id          int not null auto_increment,
    hw_ob_id             int not null,
    proj_ob_id           int,
    test_ob_id           int not null,
@@ -143,7 +143,7 @@ create table obligation_definition
 /*==============================================================*/
 create table person
 (
-   person_id            int not null,
+   person_id            int not null auto_increment,
    jmbg                 varchar(13) not null,
    degree_name          varchar(64) not null,
    surname              varchar(64) not null,
@@ -159,7 +159,7 @@ create table person
 /*==============================================================*/
 create table professor
 (
-   person_id            int not null,
+   person_id            int not null auto_increment,
    prof_id              int not null,
    study_title          varchar(16) not null,
    prof_email           varchar(64) not null,
@@ -171,7 +171,7 @@ create table professor
 /*==============================================================*/
 create table project
 (
-   project_id           int not null,
+   project_id           int not null auto_increment,
    name                 varchar(128) not null,
    abstract             text not null,
    key_words            text not null,
@@ -183,7 +183,7 @@ create table project
 /*==============================================================*/
 create table project_obligation
 (
-   proj_ob_id           int not null,
+   proj_ob_id           int not null auto_increment,
    project_id           int not null,
    primary key (proj_ob_id)
 );
@@ -193,7 +193,7 @@ create table project_obligation
 /*==============================================================*/
 create table question
 (
-   question_id          int not null,
+   question_id          int not null auto_increment,
    ans1                 text not null,
    ans2                 text not null,
    ans3                 text not null,
@@ -206,7 +206,7 @@ create table question
 /*==============================================================*/
 create table semester
 (
-   semester_id          int not null,
+   semester_id          int not null auto_increment,
    semester_code        smallint not null,
    primary key (semester_id)
 );
@@ -216,7 +216,7 @@ create table semester
 /*==============================================================*/
 create table student
 (
-   person_id            int not null,
+   person_id            int not null auto_increment,
    stud_id              int not null,
    study_type           varchar(16) not null,
    stud_email           varchar(64) not null,
@@ -228,7 +228,7 @@ create table student
 /*==============================================================*/
 create table study_program
 (
-   program_id           int not null,
+   program_id           int not null auto_increment,
    faculty_id           int,
    study_name           varchar(32) not null,
    duration             smallint not null,
@@ -242,7 +242,7 @@ create table study_program
 /*==============================================================*/
 create table study_year
 (
-   year_id              int not null,
+   year_id              int not null auto_increment,
    yearstart            date not null,
    yearend              date not null,
    primary key (year_id)
@@ -253,7 +253,7 @@ create table study_year
 /*==============================================================*/
 create table stud_sub
 (
-   person_id            int not null,
+   person_id            int not null auto_increment,
    stud_id              int not null,
    subject_id           int not null,
    primary key (person_id, stud_id, subject_id)
@@ -264,7 +264,7 @@ create table stud_sub
 /*==============================================================*/
 create table subject
 (
-   subject_id           int not null,
+   subject_id           int not null auto_increment,
    person_id            int not null,
    prof_id              int not null,
    subject_code         varchar(5) not null,
@@ -278,7 +278,7 @@ create table subject
 /*==============================================================*/
 create table subject_definition
 (
-   sub_def_id           int not null,
+   sub_def_id           int not null auto_increment,
    curriculum_id        int not null,
    subject_id           int not null,
    primary key (sub_def_id)
@@ -289,7 +289,7 @@ create table subject_definition
 /*==============================================================*/
 create table test
 (
-   test_id              int not null,
+   test_id              int not null auto_increment,
    question_id          int not null,
    test_num             smallint not null,
    primary key (test_id)
@@ -300,7 +300,7 @@ create table test
 /*==============================================================*/
 create table test_obligation
 (
-   test_ob_id           int not null,
+   test_ob_id           int not null auto_increment,
    test_id              int not null,
    primary key (test_ob_id)
 );
