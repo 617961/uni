@@ -88,6 +88,7 @@ public class Student implements Serializable {
             ENTITY_MANAGER_FACTORY.close();
         }
     }
+
     public Student getStudent(int id){
         EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("unisysimp");
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
